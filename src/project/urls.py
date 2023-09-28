@@ -1,13 +1,16 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import include, path
 
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
+import adverts.urls
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/weekly-tests/', include(adverts.urls))
 ]
 
 schema_view = get_schema_view(
