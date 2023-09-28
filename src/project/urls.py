@@ -10,7 +10,7 @@ import adverts.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/weekly-tests/', include(adverts.urls))
+    path('api/', include(adverts.urls))
 ]
 
 schema_view = get_schema_view(
