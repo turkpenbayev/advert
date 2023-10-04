@@ -1,3 +1,4 @@
+from django.db.models import F
 from rest_framework import viewsets, mixins
 from rest_framework import filters
 from rest_framework.response import Response
@@ -16,9 +17,8 @@ class AdvertViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Retri
     def get_queryset(self):
         return Advert.objects.select_related('city', 'category')
 
-    def retrieve(self, request, *args, **kwargs):
+    def retrieve(self, request, pk, *args, **kwargs):
+        Advert.objects.filter(pk=pk).update(views=F('views')+1)
         instance = self.get_object()
-        instance.views += 1
-        instance.save(update_fields=["views"])
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
